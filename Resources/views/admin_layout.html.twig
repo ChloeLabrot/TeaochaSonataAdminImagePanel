@@ -7,22 +7,22 @@
 	<link type="text/css" rel="stylesheet" href="{{asset('bundles/teaochasonataadminimagepanel/css/image-panel.css')}}" />
 {% endblock %}
 
-{% block javascripts %}    {{ parent() }}
-	
+{% block javascripts %}
+	{{ parent() }}
 	<script src="{{asset('bundles/teaochasonataadminimagepanel/js/cropper/cropper.min.js')}}"></script>
 	<script src="{{asset('bundles/teaochasonataadminimagepanel/js/modal-image.js')}}"></script>
 	<script src="{{asset('bundles/teaochasonataadminimagepanel/js/image-panel.js')}}"></script>
-    <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('bundles/teaochasonataadminimagepanel/ckeditor/ckeditor.js')}}"></script>
 {% endblock %}
 
 
 {% block side_bar_after_nav %}
-	{% if app.security.token and is_granted('ROLE_SONATA_ADMIN') %}
-	<li id="image-panel-dashboard-nav-item">
-		<a href="{{url('teaocha_image_panel_home')}}">
-			<i class="fa fa-camera"></i><span>Images</span>
-		</a>
-	</li>
+	{% if is_granted('ROLE_ADMIN') %}
+		<li id="image-panel-dashboard-nav-item">
+			<a href="{{url('teaocha_image_panel_home')}}">
+				<i class="fa fa-camera"></i><span>Images</span>
+			</a>
+		</li>
 	{{ parent() }}
 	{% endif %}
 {% endblock %}

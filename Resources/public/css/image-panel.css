@@ -2,7 +2,6 @@
 	display: none;
 }
 
-
 #modal_images_panel {
 
 	position: fixed;
@@ -21,7 +20,7 @@
 
 #image-panel-dashboard-nav-item  a{
 	display: block;
-	padding: 12px 5px 12px 0px;	
+	padding: 12px 0 12px 5px;
 }
 
 #image-panel-dashboard-nav-item  a:hover{
