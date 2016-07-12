@@ -20,7 +20,7 @@ First require the bundle:
 composer require teaocha/sonata-admin-image-panel
 ```
 
-Add it to your kernel
+Add it to your kernel:
 
 ```
 class AppKernel extends Kernel
@@ -40,14 +40,14 @@ Install the assets:
 php app/console assets:install web
 ```
 
-Add the routing:
+Add the routing (app/config/routing.yml):
 
 ```
 teaocha_image_panel:
   resource: '@TeaochaSonataAdminImagePanelBundle/Resources/config/routing.yml'
 ```
 
-Tell sonata to use the bundle's layout:
+Tell sonata to use the bundle's layout (app/config/config.yml):
 
 ```
 sonata_admin:
