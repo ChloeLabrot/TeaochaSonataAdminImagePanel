@@ -1,5 +1,5 @@
 {
-    "name": "teaocha/sonata-admin-image-panel",
+    "name": "teaocha/sonata-admin-image-panel-3",
 	"type": "symfony-bundle",
 	"keywords": ["sonata","images", "panel", "ckeditor", "crop", "upload"],
     "license": "MIT",
