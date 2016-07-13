@@ -55,7 +55,7 @@ class MediaProcessController extends Controller
         try {
             $result = $imageHandler->imageUrlUpload($file);
 
-            return new JsonResponse(array('id' => $result->getId(), 'url' => $result->getPreviewUrl()));
+            return new JsonResponse(array('id' => $result->getId(), 'url' => $this->get('assets.packages')->getUrl($result->getPreviewUrl())));
         } catch (\Exception $e) {
             $response = new Response();
             $response->setContent($e->getMessage());
@@ -95,7 +95,7 @@ class MediaProcessController extends Controller
         try {
             $result = $imageHandler->imageUpload($file);
 
-            return new JsonResponse(array('id' => $result->getId(), 'url' => $result->getPreviewUrl()));
+            return new JsonResponse(array('id' => $result->getId(), 'url' => $this->get('assets.packages')->getUrl($result->getPreviewUrl())));
         } catch (\Exception $e) {
             $response = new Response();
             $response->setContent($e->getMessage());
@@ -104,7 +104,7 @@ class MediaProcessController extends Controller
             return $response;
         }
     }
-    
+
     public function deleteImageAction($id)
     {
         /** @var ImagePanelRequestHandler $imageHandler */
