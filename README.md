@@ -7,7 +7,7 @@ Symfony2 bundle that adds a page and modal popup to the sonata admin that lets y
 - Install the bundle
 - Add the bundle routing and redirect sonata to use the bundle's template
 - Create a service that handles the image data uploaded and returns a url to a preview image
-- An image panel option appears in the menu
+- An image panel option appears in the menu (in order to see it, user must be granted Admin)
 - You can upload, browse, delete, and crop images in the panel
 - You can also upload urls for external images
 - You can add a button next to any text box on an edit page that opens the panel in a modal view and returns the selected image's url into the text box
@@ -32,12 +32,6 @@ class AppKernel extends Kernel
     );
   }
 }
-```
-
-Install the assets:
-
-```
-php app/console assets:install web
 ```
 
 Add the routing (app/config/routing.yml):
@@ -126,6 +120,12 @@ app.image_panel_request_handler:
   class: AppBundle\Services\ImagePanelRequestHandler
   tags:
     - { name: teaocha.image_panel.request_handler }
+```
+
+Install the assets:
+
+```
+php app/console assets:install web
 ```
 
 ###Adding a button to a text field
