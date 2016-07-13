@@ -14,16 +14,6 @@ interface RequestHandlerInterface
      * @return RequestResult
      */
 	public function imageUpload($file);
-
-	/**
-     * Handles an image url upload request
-	 * Return a RequestResult object that contains a url to a preview of the image and an id that refers to it (preview could be the url that was sent)
-     *
-	 * @param  string $file The file path of the uploaded image
-	 *
-     * @return RequestResult
-     */
-	public function imageUrlUpload($file);
 	
 	/**
      * Handles a request to delete an image (nothing to return, throw an exception to indicate failure)

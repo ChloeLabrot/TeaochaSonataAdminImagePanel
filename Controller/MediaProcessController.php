@@ -53,7 +53,7 @@ class MediaProcessController extends Controller
         $imageHandler = $this->get('teaocha.image_panel.request_handler_provider')->getHandler();
 
         try {
-            $result = $imageHandler->imageUrlUpload($file);
+            $result = $imageHandler->imageUpload($file);
 
             return new JsonResponse(array('id' => $result->getId(), 'url' => $this->get('assets.packages')->getUrl($result->getPreviewUrl())));
         } catch (\Exception $e) {
