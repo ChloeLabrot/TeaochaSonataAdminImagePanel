@@ -153,7 +153,7 @@ if (!window.ImagePanel) {
                 e.preventDefault();
                 var imgElement = $(this).parent();
                 var imgId = $(imgElement).attr('data-id');
-                var deleteUrl = '/mediaprocess/deleteimage/' + imgId;
+                var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', { id: imgId }, true);
 
                 $(imgElement).addClass('loading');
 
