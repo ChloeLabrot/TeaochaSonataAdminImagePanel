@@ -12,10 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MediaProcessController extends Controller
 {
-
     function base64_to_file($base64_string, $output_file)
     {
-        $ifp  = fopen($output_file, "wb");
+        $ifp = fopen($output_file, "wb");
 
         fwrite($ifp, base64_decode($base64_string));
         fclose($ifp);
@@ -34,7 +33,7 @@ class MediaProcessController extends Controller
             return $response;
         }
 
-        $url = $request->request->get('imageUrl');
+        $url  = $request->request->get('imageUrl');
         $file = $this->get('kernel')->getRootDir() . "/../web/uploads/" . mt_rand();
         if (strpos($url, '.jpeg') !== false || strpos($url, '.jpg') !== false) {
             $file .= '.jpeg';
@@ -55,6 +54,7 @@ class MediaProcessController extends Controller
 
         try {
             $result = $imageHandler->imageUrlUpload($file);
+
             return new JsonResponse(array('id' => $result->getId(), 'url' => $result->getPreviewUrl()));
         } catch (\Exception $e) {
             $response = new Response();
@@ -94,6 +94,7 @@ class MediaProcessController extends Controller
 
         try {
             $result = $imageHandler->imageUpload($file);
+
             return new JsonResponse(array('id' => $result->getId(), 'url' => $result->getPreviewUrl()));
         } catch (\Exception $e) {
             $response = new Response();
@@ -107,10 +108,11 @@ class MediaProcessController extends Controller
 
     public function deleteImageAction($id)
     {
+        /** @var ImagePanelRequestHandler $imageHandler */
         $imageHandler = $this->get('teaocha.image_panel.request_handler_provider')->getHandler();
 
         try {
-            $result   = $imageHandler->deleteImage($id);
+            $imageHandler->deleteImage($id);
             $response = new Response();
             $response->setStatusCode(Response::HTTP_OK);
 
@@ -123,5 +125,4 @@ class MediaProcessController extends Controller
             return $response;
         }
     }
-
 }
