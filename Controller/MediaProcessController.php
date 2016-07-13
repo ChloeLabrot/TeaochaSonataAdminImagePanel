@@ -104,8 +104,7 @@ class MediaProcessController extends Controller
             return $response;
         }
     }
-
-
+    
     public function deleteImageAction($id)
     {
         /** @var ImagePanelRequestHandler $imageHandler */
