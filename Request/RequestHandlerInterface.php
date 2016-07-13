@@ -9,22 +9,21 @@ interface RequestHandlerInterface
      * Handles the image data from an image upload request
 	 * Return a RequestResult object that contains a url to a preview of the image and an id that refers to it
      *
-	 * @param string $imageData A base64 encoded string of the image data
-	 * @param string $contentType The MIME type of the image
+	 * @param  string $file The file path of the uploaded image
 	 *
      * @return RequestResult
      */
-	public function imageUpload($imageData, $contentType);
+	public function imageUpload($file);
 
 	/**
      * Handles an image url upload request
 	 * Return a RequestResult object that contains a url to a preview of the image and an id that refers to it (preview could be the url that was sent)
      *
-	 * @param string $imageUrl The url of the image to be saved
+	 * @param  string $file The file path of the uploaded image
 	 *
      * @return RequestResult
      */
-	public function imageUrlUpload($imageUrl);
+	public function imageUrlUpload($file);
 	
 	/**
      * Handles a request to delete an image (nothing to return, throw an exception to indicate failure)
