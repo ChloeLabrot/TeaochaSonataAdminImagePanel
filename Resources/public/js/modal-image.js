@@ -46,8 +46,8 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 			e.preventDefault();
 			return false;
 		});
-		
-		$('#modal_cropper_image').cropper({background:false});
+
+		$('#modal_cropper_image').cropper({background: false, autoCropArea: 1});
 		
 		$('#modal_cropper_button_ar_set').click(function(){
 			var arval = $('#modal_cropper_ar_input').val();
@@ -87,10 +87,10 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 		$('#modal_cropper_image').cropper('destroy');
 
 		if(aspectRatio !== null) {
-			$('#modal_cropper_image').cropper({background:false, aspectRatio: aspectRatio})
+			$('#modal_cropper_image').cropper({background: false, aspectRatio: aspectRatio, autoCropArea: 0.9})
 		}
 		else {	
-			$('#modal_cropper_image').cropper({background:false})
+			$('#modal_cropper_image').cropper({background: false, autoCropArea: 0.9})
 		}
 	}
 	
