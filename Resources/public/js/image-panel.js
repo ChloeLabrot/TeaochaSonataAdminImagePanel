@@ -152,22 +152,25 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.images-panel-delete', function (e) {
                 e.preventDefault();
-                var imgElement = $(this).parent();
-                var imgId = $(imgElement).attr('data-id');
-                var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', { id: imgId }, true);
 
-                $(imgElement).addClass('loading');
+                if (confirm("Do you really want to delete this picture?")) {
+                    var imgElement = $(this).parent();
+                    var imgId = $(imgElement).attr('data-id');
+                    var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', {id: imgId}, true);
 
-                $.ajax({
-                    method: 'GET',
-                    url: deleteUrl,
-                    success: function () {
-                        $(imgElement).remove()
-                    },
-                    error: function () {
-                        $(imgElement).removeClass('loading')
-                    }
-                })
+                    $(imgElement).addClass('loading');
+
+                    $.ajax({
+                        method: 'GET',
+                        url: deleteUrl,
+                        success: function () {
+                            $(imgElement).remove()
+                        },
+                        error: function () {
+                            $(imgElement).removeClass('loading')
+                        }
+                    })
+                }
             });
 
             $(document).on('click', '#images_panel_upload_button', function () {
