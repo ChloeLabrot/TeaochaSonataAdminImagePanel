@@ -38,8 +38,12 @@
 	border-radius: 10px;
 }
 
-#images_panel_topbar {
+#images_panel_images_list {
+	overflow-y: scroll;
+	max-height: 55vh;
+}
 
+#images_panel_topbar {
 	margin: 10px;
 	margin-bottom: 20px;
 	border-bottom: 1px solid #888;	
