@@ -125,6 +125,7 @@ if (!window.ImagePanel) {
             function returnImageToCkeditor(image) {
                 var url = $(image).attr('src');
                 var funcNum = getUrlParam('CKEditorFuncNum');
+                console.log(window);
                 window.opener.CKEDITOR.tools.callFunction(funcNum, url);
                 window.close()
             }
@@ -202,7 +203,8 @@ if (!window.ImagePanel) {
             $(document).on('click', '.teaocha-image-panel-url-btn', function () {
                 $('body').append(modalImagesPanel());
                 urlElementToUpdate = $(this).parent().siblings('input')[0];
-                $('#modal_images_panel').load('/admin/images/modal')
+                var route = Routing.generate('teaocha_image_panel_modal', null, true);
+                $('#modal_images_panel').load(route);
             });
 
             $(document).on('click', '#images_panel_close_button', function () {
@@ -218,11 +220,14 @@ if (!window.ImagePanel) {
                 var isModal = $('#images_panel').attr('data-modal');
                 var isCkeditor = $('#images_panel').attr('data-ckeditor');
                 var isLoading = $(this).parent().hasClass('loading');
-                if (isModal && !isLoading && !isCkeditor) {
-                    useImage(this)
+
+                if (isModal == 'true' && !isLoading && isCkeditor == 'false') {
+                    console.log('ici');
+                    useImage(this);
                 }
 
-                if (isModal && !isLoading && isCkeditor) {
+                if (isModal == 'true' && !isLoading && isCkeditor == 'true') {
+                    console.log('la');
                     returnImageToCkeditor(this)
                 }
             });
