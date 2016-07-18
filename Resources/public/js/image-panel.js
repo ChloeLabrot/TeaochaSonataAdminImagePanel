@@ -125,14 +125,15 @@ if (!window.ImagePanel) {
             function returnImageToCkeditor(image) {
                 var url = $(image).attr('src');
                 var funcNum = getUrlParam('CKEditorFuncNum');
-                console.log(window);
                 window.opener.CKEDITOR.tools.callFunction(funcNum, url);
                 window.close()
             }
 
-            function useImage(image) {
+            function useImage(image, imageId) {
+                $(urlElementToUpdate).parent().find('img').remove();
+                $(urlElementToUpdate).after(image);
                 if (urlElementToUpdate) {
-                    $(urlElementToUpdate).val($(image).attr('src'))
+                    $(urlElementToUpdate).val(imageId)
                 }
                 closeModalImagesPanel()
             }
@@ -145,7 +146,6 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.images-panel-crop', function (e) {
                 e.preventDefault();
-                // var imgElement = $(this).parent();
                 var url = $($(this).siblings('img')[0]).attr('src');
                 ModalImage.crop(url, doneCropping)
             });
@@ -202,7 +202,7 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.teaocha-image-panel-url-btn', function () {
                 $('body').append(modalImagesPanel());
-                urlElementToUpdate = $(this).parent().siblings('input')[0];
+                urlElementToUpdate = $(this).closest('.sonata-ba-field').find('select')[0];
                 var route = Routing.generate('teaocha_image_panel_modal', null, true);
                 $('#modal_images_panel').load(route);
             });
@@ -222,12 +222,10 @@ if (!window.ImagePanel) {
                 var isLoading = $(this).parent().hasClass('loading');
 
                 if (isModal == 'true' && !isLoading && isCkeditor == 'false') {
-                    console.log('ici');
-                    useImage(this);
+                    useImage(this, $(this).closest('[data-id]').attr('data-id'));
                 }
 
                 if (isModal == 'true' && !isLoading && isCkeditor == 'true') {
-                    console.log('la');
                     returnImageToCkeditor(this)
                 }
             });
