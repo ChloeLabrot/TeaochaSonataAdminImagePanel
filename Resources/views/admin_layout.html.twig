@@ -19,7 +19,7 @@
 
 
 {% block side_bar_after_nav %}
-	{% if is_granted('ROLE_ADMIN') %}
+	{% if is_granted('ROLE_SONATA_ADMIN') %}
 		<li id="image-panel-dashboard-nav-item">
 			<a href="{{url('teaocha_image_panel_home')}}">
 				<i class="fa fa-camera"></i><span>Images</span>
