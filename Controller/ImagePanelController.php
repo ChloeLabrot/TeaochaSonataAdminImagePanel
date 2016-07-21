@@ -17,6 +17,7 @@ class ImagePanelController extends Controller
     public function indexAction()
     {
         $admin_pool = $this->get('sonata.admin.pool');
+        $baseTemplate = $admin_pool->getTemplate('layout');
 		
 		$imageHandler = $this->get('teaocha.image_panel.request_handler_provider')->getHandler();
 		$images = $imageHandler->listImages();
@@ -24,7 +25,8 @@ class ImagePanelController extends Controller
         return array(
             'admin_pool' => $admin_pool,
             'name' => 'media',
-			'images' => $images
+			'images' => $images,
+            'base_template' => $baseTemplate
         );
     }
 	
