@@ -115,25 +115,26 @@ if (!window.ImagePanel) {
                 $('#modal_images_panel').remove()
             }
 
-            function getUrlParam(paramName) {
-                var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
-                var match = window.location.search.match(reParam);
-
-                return ( match && match.length > 1 ) ? match[1] : null;
-            }
-
-            function returnImageToCkeditor(image) {
-                var url = $(image).attr('src');
-                var funcNum = getUrlParam('CKEditorFuncNum');
-                window.opener.CKEDITOR.tools.callFunction(funcNum, url);
-                window.close()
-            }
-
             function useImage(image, imageId) {
                 $(urlElementToUpdate).parent().find('img').remove();
                 $(urlElementToUpdate).after(image);
                 if (urlElementToUpdate) {
                     $(urlElementToUpdate).val(imageId)
+                }
+                closeModalImagesPanel()
+            }
+
+            function addImage(image, imageId, checkboxList) {
+                var item = checkboxList.find('input[value='+imageId+']');
+                if (item.length == 0) {
+                    var li = $("<li>");
+                    item = $("<input name='"+checkboxList.attr('data-form-id')+"[images][]' value='"+imageId+"' type='checkbox'>");
+                    li.append(item);
+                    checkboxList.append(li);
+                }
+                if (!item.prop('checked')) {
+                    item.prop('checked', true);
+                    $('.teaocha-image-panel-url-btn').before(image);
                 }
                 closeModalImagesPanel()
             }
@@ -173,11 +174,13 @@ if (!window.ImagePanel) {
                 }
             });
 
-            $(document).on('click', '#images_panel_upload_button', function () {
+            $(document).on('click', '#images_panel_upload_button', function (e) {
+                e.preventDefault();
                 $('#images_panel_file').click()
             });
 
-            $(document).on('change', '#images_panel_file', function () {
+            $(document).on('change', '#images_panel_file', function (e) {
+                e.preventDefault();
                 var file = $('#images_panel_file')[0].files[0];
                 if (file.type.match('image.*')) {
                     var reader = new FileReader();
@@ -188,48 +191,47 @@ if (!window.ImagePanel) {
                 }
             });
 
-            $(document).on('click', '#images_panel_from_url_button', function () {
+            $(document).on('click', '#images_panel_from_url_button', function (e) {
+                e.preventDefault();
                 $('#images_panel_url_form').removeClass('hidden')
             });
 
-            $(document).on('click', '#images_panel_url_form_cancel', function () {
+            $(document).on('click', '#images_panel_url_form_cancel', function (e) {
+                e.preventDefault();
                 $('#images_panel_url_form').addClass('hidden')
             });
 
-            $(document).on('click', '#images_panel_url_form_ok', function () {
+            $(document).on('click', '#images_panel_url_form_ok', function (e) {
+                e.preventDefault();
                 var imageUrl = $('#images_panel_url_form_input').val();
                 $('#images_panel_url_form_input').val('');
                 $('#images_panel_url_form').addClass('hidden');
                 doneGettingImageUrl(imageUrl)
             });
 
-            $(document).on('click', '.teaocha-image-panel-url-btn', function () {
+            $(document).on('click', '.teaocha-image-panel-url-btn', function (e) {
+                e.preventDefault();
                 $('body').append(modalImagesPanel());
                 urlElementToUpdate = $(this).closest('.sonata-ba-field').find('select')[0];
                 var route = Routing.generate('teaocha_image_panel_modal', null, true);
                 $('#modal_images_panel').load(route);
             });
 
-            $(document).on('click', '#images_panel_close_button', function () {
-                if ($('#images_panel').attr('data-ckeditor')) {
-                    window.close()
-                }
-                else {
-                    closeModalImagesPanel()
-                }
+            $(document).on('click', '#images_panel_close_button', function (e) {
+                e.preventDefault();
+                closeModalImagesPanel()
             });
 
-            $(document).on('click', '.images-panel-image img', function () {
+            $(document).on('click', '.images-panel-image img', function (e) {
+                e.preventDefault();
                 var isModal = $('#images_panel').attr('data-modal');
-                var isCkeditor = $('#images_panel').attr('data-ckeditor');
                 var isLoading = $(this).parent().hasClass('loading');
+                var checkboxList = $('ul[data-form-id]');
 
-                if (isModal == 'true' && !isLoading && isCkeditor == 'false') {
+                if (isModal == 'true' && !isLoading && !checkboxList.length) {
                     useImage(this, $(this).closest('[data-id]').attr('data-id'));
-                }
-
-                if (isModal == 'true' && !isLoading && isCkeditor == 'true') {
-                    returnImageToCkeditor(this)
+                } else if (isModal == 'true' && !isLoading && checkboxList.length != 0) {
+                    addImage(this, $(this).closest('[data-id]').attr('data-id'), checkboxList);
                 }
             });
 
