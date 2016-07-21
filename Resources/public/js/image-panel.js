@@ -134,7 +134,7 @@ if (!window.ImagePanel) {
                 }
                 if (!item.prop('checked')) {
                     item.prop('checked', true);
-                    checkboxList.before(image);
+                    $('.teaocha-image-panel-url-btn').before(image);
                 }
                 closeModalImagesPanel()
             }
