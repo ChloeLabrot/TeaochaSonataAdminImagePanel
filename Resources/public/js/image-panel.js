@@ -166,11 +166,13 @@ if (!window.ImagePanel) {
                 }
             });
 
-            $(document).on('click', '#images_panel_upload_button', function () {
+            $(document).on('click', '#images_panel_upload_button', function (e) {
+                e.preventDefault();
                 $('#images_panel_file').click()
             });
 
-            $(document).on('change', '#images_panel_file', function () {
+            $(document).on('change', '#images_panel_file', function (e) {
+                e.preventDefault();
                 var file = $('#images_panel_file')[0].files[0];
                 if (file.type.match('image.*')) {
                     var reader = new FileReader();
@@ -181,29 +183,34 @@ if (!window.ImagePanel) {
                 }
             });
 
-            $(document).on('click', '#images_panel_from_url_button', function () {
+            $(document).on('click', '#images_panel_from_url_button', function (e) {
+                e.preventDefault();
                 $('#images_panel_url_form').removeClass('hidden')
             });
 
-            $(document).on('click', '#images_panel_url_form_cancel', function () {
+            $(document).on('click', '#images_panel_url_form_cancel', function (e) {
+                e.preventDefault();
                 $('#images_panel_url_form').addClass('hidden')
             });
 
-            $(document).on('click', '#images_panel_url_form_ok', function () {
+            $(document).on('click', '#images_panel_url_form_ok', function (e) {
+                e.preventDefault();
                 var imageUrl = $('#images_panel_url_form_input').val();
                 $('#images_panel_url_form_input').val('');
                 $('#images_panel_url_form').addClass('hidden');
                 doneGettingImageUrl(imageUrl)
             });
 
-            $(document).on('click', '.teaocha-image-panel-url-btn', function () {
+            $(document).on('click', '.teaocha-image-panel-url-btn', function (e) {
+                e.preventDefault();
                 $('body').append(modalImagesPanel());
                 urlElementToUpdate = $(this).closest('.sonata-ba-field').find('select')[0];
                 var route = Routing.generate('teaocha_image_panel_modal', null, true);
                 $('#modal_images_panel').load(route);
             });
 
-            $(document).on('click', '#images_panel_close_button', function () {
+            $(document).on('click', '#images_panel_close_button', function (e) {
+                e.preventDefault();
                 if ($('#images_panel').attr('data-ckeditor')) {
                     window.close()
                 }
@@ -212,7 +219,8 @@ if (!window.ImagePanel) {
                 }
             });
 
-            $(document).on('click', '.images-panel-image img', function () {
+            $(document).on('click', '.images-panel-image img', function (e) {
+                e.preventDefault();
                 var isModal = $('#images_panel').attr('data-modal');
                 var isLoading = $(this).parent().hasClass('loading');
 
