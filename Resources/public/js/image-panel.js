@@ -122,13 +122,6 @@ if (!window.ImagePanel) {
                 return ( match && match.length > 1 ) ? match[1] : null;
             }
 
-            function returnImageToCkeditor(image) {
-                var url = $(image).attr('src');
-                var funcNum = getUrlParam('CKEditorFuncNum');
-                window.opener.CKEDITOR.tools.callFunction(funcNum, url);
-                window.close()
-            }
-
             function useImage(image, imageId) {
                 $(urlElementToUpdate).parent().find('img').remove();
                 $(urlElementToUpdate).after(image);
@@ -221,15 +214,10 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.images-panel-image img', function () {
                 var isModal = $('#images_panel').attr('data-modal');
-                var isCkeditor = $('#images_panel').attr('data-ckeditor');
                 var isLoading = $(this).parent().hasClass('loading');
 
-                if (isModal == 'true' && !isLoading && isCkeditor == 'false') {
+                if (isModal == 'true' && !isLoading) {
                     useImage(this, $(this).closest('[data-id]').attr('data-id'));
-                }
-
-                if (isModal == 'true' && !isLoading && isCkeditor == 'true') {
-                    returnImageToCkeditor(this)
                 }
             });
 
