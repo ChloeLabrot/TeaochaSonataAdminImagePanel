@@ -119,6 +119,12 @@ if (!window.ImagePanel) {
                 $(urlElementToUpdate).parent().find('img').remove();
                 $(urlElementToUpdate).after(image);
                 if (urlElementToUpdate) {
+                    if ($(urlElementToUpdate).find('option[value='+imageId+']').length == 0) {
+                        $(urlElementToUpdate).append($('<option>', {
+                            value: imageId,
+                            text: imageId
+                        }));
+                    }
                     $(urlElementToUpdate).val(imageId)
                 }
                 closeModalImagesPanel()
