@@ -15,6 +15,7 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 				'<img id="modal_cropper_image" src="' + url + '" />' +
 			'<div id="modal_cropper_buttons">' +
 				'<button id="modal_cropper_button_done" class="btn btn-primary ar-btn">Done</button>' +
+				'<button id="modal_cropper_button_close" class="btn btn-danger ar-btn">Cancel</button>' +
 				'<button id="modal_cropper_button_free_ar" class="btn btn-primary ar-btn">Free AR</button>' +
 				'<button id="modal_cropper_button_ar_set" class="btn btn-secondary ar-btn">Set</button>' +
 				'<input id="modal_cropper_ar_input" placeholder="Aspect ratio (e.g. 16/9)">' +				
@@ -35,9 +36,9 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 	function openModalCropper() {
 	
 		$('body').append(modalCropper(imageUrl));
-		
-		$('#modal_cropper').click(ModalImage.removeModalCropper);
-		
+
+		$('#modal_cropper_button_close').click(ModalImage.removeModalCropper);
+
 		$('#modal_cropper_buttons').click(function(e){
 			e.preventDefault();
 			return false;
@@ -48,11 +49,11 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 		});
 
 		$('#modal_cropper_image').cropper({background: false, autoCropArea: 1});
-		
+
 		$('#modal_cropper_button_ar_set').click(function(){
 			var arval = $('#modal_cropper_ar_input').val();
 			var match = arval.match(/^([0-9]+)\/([0-9]+)$/);
-			if(match){				
+			if(match){
 				resetModalCropper(arval.split('/')[0]/arval.split('/')[1]);
 				return
 			}
@@ -61,22 +62,22 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 				resetModalCropper(arval.split(':')[0]/arval.split(':')[1]);
 			}
 		});
-		
+
 		$('#modal_cropper_button_free_ar').click(function(){
 			resetModalCropper()
 		});
-		
+
 		$('#modal_cropper_button_done').click(function(){
 			doneCropping()
 		})
 	}
-	
+
 	function openModalShow() {
-	
+
 		$('body').append(modalShow(imageUrl));
-		
+
 		$('#modal_cropper').click(ModalImage.removeModalCropper);
-		
+
 		$('#modal_cropper_holder').click(function(e){
 			e.preventDefault();
 			return false;
