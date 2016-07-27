@@ -116,8 +116,11 @@ if (!window.ImagePanel) {
             }
 
             function useImage(image, imageId) {
-                $(urlElementToUpdate).parent().find('img').remove();
-                $(urlElementToUpdate).after(image);
+                $(urlElementToUpdate).parent().find('div').remove();
+                var $div = $("<div></div>");
+                $div.append(image);
+                $div.append("<i class='fa fa-times' data-removable='true' data-name="+$(urlElementToUpdate).attr('name')+" data-value="+imageId+"></i>");
+                $(urlElementToUpdate).after($div);
                 if (urlElementToUpdate) {
                     if ($(urlElementToUpdate).find('option[value='+imageId+']').length == 0) {
                         $(urlElementToUpdate).append($('<option>', {
@@ -140,10 +143,25 @@ if (!window.ImagePanel) {
                 }
                 if (!item.prop('checked')) {
                     item.prop('checked', true);
-                    $('.teaocha-image-panel-url-btn').before(image);
+                    var $div = $("<div></div>");
+                    $div.append(image);
+                    $div.append("<i class='fa fa-times' data-removable='true' data-name="+item.attr('name')+" data-value="+imageId+"></i>");
+                    $('.teaocha-image-panel-url-btn').before($div);
                 }
                 closeModalImagesPanel()
             }
+
+            $(document).on('click', '[data-removable]', function (e) {
+                e.preventDefault();
+                var item = $("input[name='"+$(this).attr('data-name')+"'][value="+$(this).attr('data-value')+"]");
+                if (item.length) {
+                    item.prop('checked', false);
+                } else {
+                    item = $("select[name='"+$(this).attr('data-name')+"']");
+                    item.find('option:selected').prop('selected', false);
+                }
+                $(this).closest('div').remove();
+            });
 
             $(document).on('click', '.images-panel-preview', function (e) {
                 e.preventDefault();
