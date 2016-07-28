@@ -128,7 +128,9 @@ if (!window.ImagePanel) {
                             text: imageId
                         }));
                     }
-                    $(urlElementToUpdate).val(imageId)
+                    console.log(urlElementToUpdate);
+                    console.log(imageId);
+                    $(urlElementToUpdate).find("option[value='"+imageId+"']").prop('selected', true);
                 }
                 closeModalImagesPanel()
             }
