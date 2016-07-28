@@ -211,7 +211,7 @@
 	transform: scale(1);
 }
 
-.help-block img {
+.image-container img {
 	width: 300px;
 	margin: 20px;
 	box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
