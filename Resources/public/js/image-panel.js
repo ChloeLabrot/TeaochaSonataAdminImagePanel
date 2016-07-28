@@ -117,9 +117,9 @@ if (!window.ImagePanel) {
 
             function useImage(image, imageId) {
                 $(urlElementToUpdate).parent().find('div').remove();
-                var $div = $("<div></div>");
+                var $div = $("<div class='image-container'></div>");
                 $div.append(image);
-                $div.append("<i class='fa fa-times' data-removable='true' data-name="+$(urlElementToUpdate).attr('name')+" data-value="+imageId+"></i>");
+                $div.append("<i class='fa fa-times remove-btn' data-removable='true' data-name="+$(urlElementToUpdate).attr('name')+" data-value="+imageId+"></i>");
                 $(urlElementToUpdate).after($div);
                 if (urlElementToUpdate) {
                     if ($(urlElementToUpdate).find('option[value='+imageId+']').length == 0) {
@@ -145,9 +145,9 @@ if (!window.ImagePanel) {
                 }
                 if (!item.prop('checked')) {
                     item.prop('checked', true);
-                    var $div = $("<div></div>");
+                    var $div = $("<div class='image-container'></div>");
                     $div.append(image);
-                    $div.append("<i class='fa fa-times' data-removable='true' data-name="+item.attr('name')+" data-value="+imageId+"></i>");
+                    $div.append("<i class='fa fa-times remove-btn' data-removable='true' data-name="+item.attr('name')+" data-value="+imageId+"></i>");
                     $('.teaocha-image-panel-url-btn').before($div);
                 }
                 closeModalImagesPanel()

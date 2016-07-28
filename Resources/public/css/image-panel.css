@@ -177,6 +177,46 @@
 	margin-bottom: 5px;
 }
 
+.teaocha-image-panel-url-btn {
+	display: block;
+}
+
+.image-container {
+	display: inline-block;
+	position: relative;
+}
+
+.image-container .remove-btn {
+	display: inline-block;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	color: #ffe0e6;
+	background-color: #af0000;
+	width: 30px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	transition: transform 150ms ease-in-out;
+	transform-origin: right top;
+	transform: scale(0);
+}
+
+.image-container .remove-btn:hover {
+	cursor: pointer;
+	background-color: #c50000;
+}
+
+.image-container:hover .remove-btn {
+	transform: scale(1);
+}
+
+.help-block img {
+	width: 300px;
+	margin: 20px;
+	box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
+}
+
 @media screen and (max-width: 1600px) {
 	.images-panel-image {
 		width: 16%;
