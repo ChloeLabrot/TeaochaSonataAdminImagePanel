@@ -11,17 +11,17 @@
 	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 	<script>
-			Routing.generateImpl = Routing.generate;
-			Routing.generate = function (url, params) {
-				var paramsExt = {};
-				if (params) {
-					paramsExt = params;
-				}
-				if (!paramsExt._locale){
-					paramsExt._locale = '{{ app.request.locale }}';
-				}
-				return Routing.generateImpl(url, paramsExt);
+		Routing.generateImpl = Routing.generate;
+		Routing.generate = function (url, params) {
+			var paramsExt = {};
+			if (params) {
+				paramsExt = params;
 			}
+			if (!paramsExt._locale){
+				paramsExt._locale = '{{ app.request.locale }}';
+			}
+			return Routing.generateImpl(url, paramsExt);
+		}
 	</script>
 	{{ parent() }}
 	<script src="{{asset('bundles/teaochasonataadminimagepanel/js/cropper/cropper.min.js')}}"></script>
