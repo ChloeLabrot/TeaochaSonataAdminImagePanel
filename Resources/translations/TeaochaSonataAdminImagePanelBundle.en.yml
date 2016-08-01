@@ -3,3 +3,5 @@ image_panel:
     from_url: "New from URL"
     url: "Paste image URL"
     cancel: "Cancel"
+    close: "Close"
+    click: "Click an image's background to select it"
