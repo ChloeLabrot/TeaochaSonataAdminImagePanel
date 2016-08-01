@@ -1,0 +1,5 @@
+image_panel:
+    gallery: "Image gallery"
+    from_url: "New from URL"
+    url: "Paste image URL"
+    cancel: "Cancel"
