@@ -1,0 +1,7 @@
+image_panel:
+    gallery: "Gallerie d'images"
+    from_url: "Uploader depuis une URL"
+    url: "Coller l'URL de l'image"
+    cancel: "Annuler"
+    close: "Fermer"
+    click: "Cliquer sur le fond de l'image pour la sélectionner"
