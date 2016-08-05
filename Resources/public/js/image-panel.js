@@ -128,8 +128,6 @@ if (!window.ImagePanel) {
                             text: imageId
                         }));
                     }
-                    console.log(urlElementToUpdate);
-                    console.log(imageId);
                     $(urlElementToUpdate).find("option[value='"+imageId+"']").prop('selected', true);
                 }
                 closeModalImagesPanel()
@@ -159,7 +157,11 @@ if (!window.ImagePanel) {
                 if (item.length) {
                     item.prop('checked', false);
                 } else {
-                    item = $("select[name='"+$(this).attr('data-name')+"']");
+                    if (!$(this).attr('data-name')) {
+                        item = $(this).closest('.sonata-ba-field').find('select');
+                    } else {
+                        item = $("select[name='"+$(this).attr('data-name')+"']");
+                    }
                     item.find('option:selected').prop('selected', false);
                 }
                 $(this).closest('div').remove();
