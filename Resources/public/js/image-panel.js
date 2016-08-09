@@ -137,7 +137,7 @@ if (!window.ImagePanel) {
                 var item = checkboxList.find('input[value='+imageId+']');
                 if (item.length == 0) {
                     var li = $("<li>");
-                    item = $("<input name='"+checkboxList.attr('data-form-id')+"[images][]' value='"+imageId+"' type='checkbox'>");
+                    item = $("<input name='"+checkboxList.attr('data-form-id')+"' value='"+imageId+"' type='checkbox'>");
                     li.append(item);
                     checkboxList.append(li);
                 }
