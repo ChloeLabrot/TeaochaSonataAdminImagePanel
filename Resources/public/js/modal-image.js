@@ -99,9 +99,9 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 		$('#modal_cropper_button_done').addClass('loading').html('');
 
 		modalCropperImage = $('#modal_cropper_image');
-		dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL('image/jpeg', 1.0);
+		dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL('image/png', 1.0);
 		while(dataURL.length > 1000000) {
-			dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL('image/jpeg', Math.sqrt(1000000.0/dataURL.length))
+			dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL('image/png', Math.sqrt(1000000.0/dataURL.length))
 		}
 
 		modalCropperImage.cropper('destroy');
