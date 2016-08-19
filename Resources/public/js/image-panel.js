@@ -7,6 +7,7 @@ if (!window.ImagePanel) {
             //----------------------------------------------------
 
             var urlElementToUpdate;
+            var lastClickedButton;
 
             function modalImagesPanel() {
 
@@ -134,7 +135,7 @@ if (!window.ImagePanel) {
             }
 
             function addImage(image, imageId, checkboxList) {
-                var item = checkboxList.find('input[value='+imageId+']');
+                var item = checkboxList.find('input[value='+imageId+'][name="'+checkboxList.attr('data-form-id')+'"]');
                 if (item.length == 0) {
                     var li = $("<li>");
                     item = $("<input name='"+checkboxList.attr('data-form-id')+"' value='"+imageId+"' type='checkbox'>");
@@ -146,7 +147,7 @@ if (!window.ImagePanel) {
                     var $div = $("<div class='image-container'></div>");
                     $div.append(image);
                     $div.append("<i class='fa fa-times remove-btn' data-removable='true' data-name="+item.attr('name')+" data-value="+imageId+"></i>");
-                    $('.teaocha-image-panel-url-btn').before($div);
+                    lastClickedButton.before($div);
                 }
                 closeModalImagesPanel()
             }
@@ -239,6 +240,7 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.teaocha-image-panel-url-btn', function (e) {
                 e.preventDefault();
+                lastClickedButton = $(this);
                 $('body').append(modalImagesPanel());
                 urlElementToUpdate = $(this).closest('.sonata-ba-field').find('select')[0];
                 var route = Routing.generate('teaocha_image_panel_modal', null, true);
@@ -254,7 +256,7 @@ if (!window.ImagePanel) {
                 e.preventDefault();
                 var isModal = $('#images_panel').attr('data-modal');
                 var isLoading = $(this).parent().hasClass('loading');
-                var checkboxList = $('ul[data-form-id]');
+                var checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
 
                 if (isModal == 'true' && !isLoading && !checkboxList.length) {
                     useImage(this, $(this).closest('[data-id]').attr('data-id'));
