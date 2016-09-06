@@ -67,7 +67,7 @@ if (!window.ImagePanel) {
 
             function uploadImage(dataURL, cb) {
 
-                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', null, true);
+                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', {_locale: 'en'}, false);
                 var params = {};
 
                 if (dataURL.indexOf('data:image/png') !== -1) {
@@ -94,7 +94,7 @@ if (!window.ImagePanel) {
 
             function uploadImageFromUrl(url, cb) {
 
-                var uploadUrl = Routing.generate('teaocha_image_panel_image_from_url', null, true);
+                var uploadUrl = Routing.generate('teaocha_image_panel_image_from_url', null, false);
                 var params = {
                     imageUrl: url
                 };
@@ -200,7 +200,7 @@ if (!window.ImagePanel) {
                 if (confirm("Do you really want to delete this picture?")) {
                     var imgElement = $(this).parent();
                     var imgId = $(imgElement).attr('data-id');
-                    var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', {id: imgId}, true);
+                    var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', {id: imgId}, false);
 
                     $(imgElement).addClass('loading');
 
@@ -257,7 +257,7 @@ if (!window.ImagePanel) {
                 lastClickedButton = $(this);
                 $('body').append(modalImagesPanel());
                 urlElementToUpdate = $(this).closest('.sonata-ba-field').find('select')[0];
-                var route = Routing.generate('teaocha_image_panel_modal', null, true);
+                var route = Routing.generate('teaocha_image_panel_modal', null, false);
                 $('#modal_images_panel').load(route);
             });
 

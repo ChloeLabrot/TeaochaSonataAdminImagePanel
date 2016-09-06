@@ -98,15 +98,12 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 	function doneCropping() {
 		$('#modal_cropper_button_done').addClass('loading').html('');
 
-		modalCropperImage = $('#modal_cropper_image');
+		var modalCropperImage = $('#modal_cropper_image');
 		var type = 'image/jpeg';
 		if (modalCropperImage.attr('src').indexOf('data:image/png') !== -1) {
 			type = 'image/png';
 		}
 		dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL(type, 1.0);
-		while(dataURL.length > 1000000) {
-			dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL(type, Math.sqrt(1000000.0/dataURL.length));
-		}
 
 		modalCropperImage.cropper('destroy');
 		ModalImage.removeModalCropper();
