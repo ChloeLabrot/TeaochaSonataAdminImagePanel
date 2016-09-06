@@ -152,6 +152,20 @@ if (!window.ImagePanel) {
                 closeModalImagesPanel()
             }
 
+            function getUrlParam( paramName ) {
+                var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
+                var match = window.location.search.match( reParam );
+
+                return ( match && match.length > 1 ) ? match[1] : null;
+            }
+
+            function returnImageToCkeditor(image) {
+                var url = $(image).attr('src');
+                var funcNum = getUrlParam( 'CKEditorFuncNum' );
+                window.opener.CKEDITOR.tools.callFunction( funcNum, url );
+                window.close()
+            }
+            
             $(document).on('click', '[data-removable]', function (e) {
                 e.preventDefault();
                 var item = $("input[name='"+$(this).attr('data-name')+"'][value="+$(this).attr('data-value')+"]");
@@ -255,16 +269,20 @@ if (!window.ImagePanel) {
             $(document).on('click', '.images-panel-image img', function (e) {
                 e.preventDefault();
                 var isModal = $('#images_panel').attr('data-modal');
+                var isCkeditor = $('#images_panel').attr('data-ckeditor');
                 var isLoading = $(this).parent().hasClass('loading');
-                var checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
+                if (typeof lastClickedButton == undefined) {
+                    var checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
+                }
 
-                if (isModal == 'true' && !isLoading && !checkboxList.length) {
+                if(isModal == 'true' && !isLoading && isCkeditor == 'true') {
+                    returnImageToCkeditor(this)
+                } else if (isModal == 'true' && !isLoading && !checkboxList.length) {
                     useImage(this, $(this).closest('[data-id]').attr('data-id'));
                 } else if (isModal == 'true' && !isLoading && checkboxList.length != 0) {
                     addImage(this, $(this).closest('[data-id]').attr('data-id'), checkboxList);
                 }
             });
-
 
             //----------------------------------------------------
         })

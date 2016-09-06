@@ -17,3 +17,7 @@ teaocha_image_panel_delete_image:
 teaocha_image_panel_image_from_url:
     path: /mediaprocess/imagefromurl
     defaults: {_controller: 'TeaochaSonataAdminImagePanelBundle:MediaProcess:imageFromUrl'}
+
+teaocha_image_panel_ckeditor:
+    path: /admin/images/ckeditor
+    defaults: {_controller: 'TeaochaSonataAdminImagePanelBundle:ImagePanel:ckeditorImagePanel'}
