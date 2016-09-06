@@ -74,7 +74,7 @@ if (!window.ImagePanel) {
                     params.image = dataURL.substring("data:image/png;base64,".length, dataURL.length);
                     params.contentType = 'image/png'
                 } else {
-                    params.image = dataURL.substring("data:image/jepg;base64,".length, dataURL.length);
+                    params.image = dataURL.substring("data:image/jpeg;base64,".length, dataURL.length);
                     params.contentType = 'image/jpeg'
                 }
 

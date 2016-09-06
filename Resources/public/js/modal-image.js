@@ -3,13 +3,13 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 	var imageUrl = "";
 	var doneCallback;
 	var dataURL = "";
-	
+
 	ModalImage.getDataURL = function() {
 		return dataURL
 	};
 
-	function modalCropper(url) { 
-		output = 
+	function modalCropper(url) {
+		output =
 		'<div id="modal_cropper">' +
 			'<div id="modal_cropper_holder">' +
 				'<img id="modal_cropper_image" src="' + url + '" />' +
@@ -18,14 +18,14 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 				'<button id="modal_cropper_button_close" class="btn btn-danger ar-btn">Cancel</button>' +
 				'<button id="modal_cropper_button_free_ar" class="btn btn-primary ar-btn">Free AR</button>' +
 				'<button id="modal_cropper_button_ar_set" class="btn btn-secondary ar-btn">Set</button>' +
-				'<input id="modal_cropper_ar_input" placeholder="Aspect ratio (e.g. 16/9)">' +				
+				'<input id="modal_cropper_ar_input" placeholder="Aspect ratio (e.g. 16/9)">' +
 			'</div>' +
 		'</div>';
 		return output
 	}
-	
-	function modalShow(url) { 
-		output = 
+
+	function modalShow(url) {
+		output =
 		'<div id="modal_cropper">' +
 			'<div id="modal_cropper_holder">' +
 				'<img id="modal_cropper_image" src="' + url + '" />' +
@@ -34,7 +34,7 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 	}
 
 	function openModalCropper() {
-	
+
 		$('body').append(modalCropper(imageUrl));
 
 		$('#modal_cropper_button_close').click(ModalImage.removeModalCropper);
@@ -83,18 +83,18 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 			return false;
 		})
 	}
-	
+
 	function resetModalCropper(aspectRatio) {
 		$('#modal_cropper_image').cropper('destroy');
 
 		if(aspectRatio !== null) {
 			$('#modal_cropper_image').cropper({background: false, aspectRatio: aspectRatio, autoCropArea: 0.9})
 		}
-		else {	
+		else {
 			$('#modal_cropper_image').cropper({background: false, autoCropArea: 0.9})
 		}
 	}
-	
+
 	function doneCropping() {
 		$('#modal_cropper_button_done').addClass('loading').html('');
 
@@ -103,28 +103,43 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 		if (modalCropperImage.attr('src').indexOf('data:image/png') !== -1) {
 			type = 'image/png';
 		}
-		dataURL = modalCropperImage.cropper('getCroppedCanvas').toDataURL(type, 1.0);
+
+        var currentWidth = modalCropperImage.cropper('getData').width;
+        var currentHeight = modalCropperImage.cropper('getData').height;
+        var maxSize = 2200;
+        var isPortrait = (currentHeight > currentWidth);
+
+        var options = {
+            width: (currentWidth > maxSize ? maxSize : currentWidth)
+        };
+        if (isPortrait) {
+            options = {
+                height: (currentHeight > maxSize ? maxSize : currentHeight)
+            };
+        }
+
+        dataURL = modalCropperImage.cropper('getCroppedCanvas', options).toDataURL(type, 1.0);
 
 		modalCropperImage.cropper('destroy');
 		ModalImage.removeModalCropper();
-		
+
 		doneCallback(dataURL)
 	}
-	
+
 	ModalImage.crop = function(srcUrl, cb) {
 		doneCallback = cb;
 		imageUrl = srcUrl;
 		openModalCropper()
 	};
-	
+
 	ModalImage.show = function(srcUrl) {
 		imageUrl = srcUrl;
 		openModalShow()
 	};
 
-	ModalImage.removeModalCropper = function() {	
-		$('#modal_cropper').remove()		
+	ModalImage.removeModalCropper = function() {
+		$('#modal_cropper').remove()
 	};
-	
+
 	return ModalImage
 })({})}
