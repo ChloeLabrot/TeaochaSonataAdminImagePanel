@@ -106,7 +106,7 @@ if(!window.ModalImage){window.ModalImage = (function(ModalImage) {
 
         var currentWidth = modalCropperImage.cropper('getData').width;
         var currentHeight = modalCropperImage.cropper('getData').height;
-        var maxSize = 4000;
+        var maxSize = 2000;
         var isPortrait = (currentHeight > currentWidth);
 
         var options = {
