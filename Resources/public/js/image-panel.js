@@ -274,7 +274,7 @@ if (!window.ImagePanel) {
                 var isLoading = $(this).parent().hasClass('loading');
                 var checkboxList = null;
 
-                if (typeof lastClickedButton === "undefined") {
+                if (typeof lastClickedButton !== "undefined") {
                     checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
                 }
 
