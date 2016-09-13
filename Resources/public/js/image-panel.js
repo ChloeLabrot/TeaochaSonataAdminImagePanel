@@ -268,18 +268,21 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.images-panel-image img', function (e) {
                 e.preventDefault();
-                var isModal = $('#images_panel').attr('data-modal');
-                var isCkeditor = $('#images_panel').attr('data-ckeditor');
+                var $imagesPanel = $('#images_panel');
+                var isModal = $imagesPanel.attr('data-modal');
+                var isCkeditor = $imagesPanel.attr('data-ckeditor');
                 var isLoading = $(this).parent().hasClass('loading');
-                if (typeof lastClickedButton == undefined) {
-                    var checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
+                var checkboxList = null;
+
+                if (typeof lastClickedButton === "undefined") {
+                    checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
                 }
 
                 if(isModal == 'true' && !isLoading && isCkeditor == 'true') {
                     returnImageToCkeditor(this)
-                } else if (isModal == 'true' && !isLoading && !checkboxList.length) {
+                } else if (isModal == 'true' && !isLoading && checkboxList && !checkboxList.length) {
                     useImage(this, $(this).closest('[data-id]').attr('data-id'));
-                } else if (isModal == 'true' && !isLoading && checkboxList.length != 0) {
+                } else if (isModal == 'true' && !isLoading && checkboxList && checkboxList.length != 0) {
                     addImage(this, $(this).closest('[data-id]').attr('data-id'), checkboxList);
                 }
             });
