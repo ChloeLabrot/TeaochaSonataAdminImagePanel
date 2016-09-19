@@ -8,6 +8,7 @@ if (!window.ImagePanel) {
 
             var urlElementToUpdate;
             var lastClickedButton;
+            var files;
 
             function modalImagesPanel() {
 
@@ -36,6 +37,7 @@ if (!window.ImagePanel) {
 
                 var newImage = $('.images-panel-image').last();
 
+                nextImageToCrop();
                 uploadImage(dataURL, function (err, data) {
                     if (err) {
                         console.log(err);
@@ -45,7 +47,7 @@ if (!window.ImagePanel) {
 
                     $(newImage).attr('data-id', data.id);
                     $($(newImage).children('img')[0]).attr('src', data.url);
-                    $(newImage).removeClass('loading')
+                    $(newImage).removeClass('loading');
                 })
             }
 
@@ -165,7 +167,7 @@ if (!window.ImagePanel) {
                 window.opener.CKEDITOR.tools.callFunction( funcNum, url );
                 window.close()
             }
-            
+
             $(document).on('click', '[data-removable]', function (e) {
                 e.preventDefault();
                 var item = $("input[name='"+$(this).attr('data-name')+"'][value="+$(this).attr('data-value')+"]");
@@ -222,16 +224,29 @@ if (!window.ImagePanel) {
                 $('#images_panel_file').click()
             });
 
+            function nextImageToCrop() {
+                if (files.length != 0) {
+                    var file = files[0];
+                    console.log(files);
+                    files.shift();
+                    if (file.type.match('image.*')) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            ModalImage.crop(e.target.result, doneCropping)
+                        };
+                        reader.readAsDataURL(file)
+                    }
+                }
+            }
+
             $(document).on('change', '#images_panel_file', function (e) {
                 e.preventDefault();
-                var file = $('#images_panel_file')[0].files[0];
-                if (file.type.match('image.*')) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        ModalImage.crop(e.target.result, doneCropping)
-                    };
-                    reader.readAsDataURL(file)
-                }
+                var fileList = $('#images_panel_file')[0].files;
+                files = [];
+                $.each(fileList, function (key, value) {
+                    files.push(value);
+                });
+                nextImageToCrop();
             });
 
             $(document).on('click', '#images_panel_from_url_button', function (e) {
