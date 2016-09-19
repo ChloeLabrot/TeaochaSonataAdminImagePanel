@@ -69,14 +69,14 @@ if (!window.ImagePanel) {
 
             function uploadImage(dataURL, cb) {
 
-                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', null, true);
+                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', {_locale: 'en'}, false);
                 var params = {};
 
                 if (dataURL.indexOf('data:image/png') !== -1) {
                     params.image = dataURL.substring("data:image/png;base64,".length, dataURL.length);
                     params.contentType = 'image/png'
                 } else {
-                    params.image = dataURL.substring("data:image/jepg;base64,".length, dataURL.length);
+                    params.image = dataURL.substring("data:image/jpeg;base64,".length, dataURL.length);
                     params.contentType = 'image/jpeg'
                 }
 
@@ -96,7 +96,7 @@ if (!window.ImagePanel) {
 
             function uploadImageFromUrl(url, cb) {
 
-                var uploadUrl = Routing.generate('teaocha_image_panel_image_from_url', null, true);
+                var uploadUrl = Routing.generate('teaocha_image_panel_image_from_url', null, false);
                 var params = {
                     imageUrl: url
                 };
@@ -202,7 +202,7 @@ if (!window.ImagePanel) {
                 if (confirm("Do you really want to delete this picture?")) {
                     var imgElement = $(this).parent();
                     var imgId = $(imgElement).attr('data-id');
-                    var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', {id: imgId}, true);
+                    var deleteUrl = Routing.generate('teaocha_image_panel_delete_image', {id: imgId}, false);
 
                     $(imgElement).addClass('loading');
 
@@ -272,7 +272,7 @@ if (!window.ImagePanel) {
                 lastClickedButton = $(this);
                 $('body').append(modalImagesPanel());
                 urlElementToUpdate = $(this).closest('.sonata-ba-field').find('select')[0];
-                var route = Routing.generate('teaocha_image_panel_modal', null, true);
+                var route = Routing.generate('teaocha_image_panel_modal', null, false);
                 $('#modal_images_panel').load(route);
             });
 
@@ -283,18 +283,21 @@ if (!window.ImagePanel) {
 
             $(document).on('click', '.images-panel-image img', function (e) {
                 e.preventDefault();
-                var isModal = $('#images_panel').attr('data-modal');
-                var isCkeditor = $('#images_panel').attr('data-ckeditor');
+                var $imagesPanel = $('#images_panel');
+                var isModal = $imagesPanel.attr('data-modal');
+                var isCkeditor = $imagesPanel.attr('data-ckeditor');
                 var isLoading = $(this).parent().hasClass('loading');
-                if (typeof lastClickedButton == undefined) {
-                    var checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
+                var checkboxList = null;
+
+                if (typeof lastClickedButton !== "undefined") {
+                    checkboxList = $(lastClickedButton.closest('form').find('ul[data-form-id]'));
                 }
 
                 if(isModal == 'true' && !isLoading && isCkeditor == 'true') {
                     returnImageToCkeditor(this)
-                } else if (isModal == 'true' && !isLoading && !checkboxList.length) {
+                } else if (isModal == 'true' && !isLoading && checkboxList && !checkboxList.length) {
                     useImage(this, $(this).closest('[data-id]').attr('data-id'));
-                } else if (isModal == 'true' && !isLoading && checkboxList.length != 0) {
+                } else if (isModal == 'true' && !isLoading && checkboxList && checkboxList.length != 0) {
                     addImage(this, $(this).closest('[data-id]').attr('data-id'), checkboxList);
                 }
             });
