@@ -33,7 +33,7 @@ if (!window.ImagePanel) {
 
             function doneCropping(dataURL) {
                 var newImageHtml = imagesPanelImageTemplate(dataURL);
-                $('#images_panel_images_list').append(newImageHtml);
+                $('#images_panel_images_list').prepend(newImageHtml);
 
                 var newImage = $('.images-panel-image').last();
 
@@ -53,7 +53,7 @@ if (!window.ImagePanel) {
 
             function doneGettingImageUrl(url) {
                 var newImageHtml = imagesPanelImageTemplate(url);
-                $('#images_panel_images_list').append(newImageHtml);
+                $('#images_panel_images_list').prepend(newImageHtml);
 
                 var newImage = $('.images-panel-image').last();
                 uploadImageFromUrl(url, function (err, data) {
@@ -227,7 +227,6 @@ if (!window.ImagePanel) {
             function nextImageToCrop() {
                 if (files.length != 0) {
                     var file = files[0];
-                    console.log(files);
                     files.shift();
                     if (file.type.match('image.*')) {
                         var reader = new FileReader();
