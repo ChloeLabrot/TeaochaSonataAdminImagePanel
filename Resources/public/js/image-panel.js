@@ -8,7 +8,7 @@ if (!window.ImagePanel) {
 
             var urlElementToUpdate;
             var lastClickedButton;
-            var files;
+            var files = [];
 
             function modalImagesPanel() {
 
