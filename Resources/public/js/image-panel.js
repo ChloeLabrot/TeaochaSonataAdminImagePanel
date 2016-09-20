@@ -35,7 +35,7 @@ if (!window.ImagePanel) {
                 var newImageHtml = imagesPanelImageTemplate(dataURL);
                 $('#images_panel_images_list').prepend(newImageHtml);
 
-                var newImage = $('.images-panel-image').last();
+                var newImage = $('.images-panel-image').first();
 
                 nextImageToCrop();
                 uploadImage(dataURL, function (err, data) {
@@ -55,7 +55,7 @@ if (!window.ImagePanel) {
                 var newImageHtml = imagesPanelImageTemplate(url);
                 $('#images_panel_images_list').prepend(newImageHtml);
 
-                var newImage = $('.images-panel-image').last();
+                var newImage = $('.images-panel-image').first();
                 uploadImageFromUrl(url, function (err, data) {
                     if (err) {
                         $(newImage).remove();
