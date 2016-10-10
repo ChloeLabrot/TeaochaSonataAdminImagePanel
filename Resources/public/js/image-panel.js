@@ -24,7 +24,7 @@ if (!window.ImagePanel) {
                     '<div class="images-panel-image loading">' +
                     '<img src="' + src + '" data-croppable=true/>' +
                     '<i class="fa fa-search images-panel-preview" aria-hidden="true" title="preview"></i>' +
-                    '<i class="fa fa-crop images-panel-crop" aria-hidden="true" title="crop"></i>' +
+                    // '<i class="fa fa-crop images-panel-crop" aria-hidden="true" title="crop"></i>' +
                     '<i class="fa fa-times images-panel-delete" aria-hidden="true" title="delete"></i>' +
                     '<span></span>' +
                     '</div>';
