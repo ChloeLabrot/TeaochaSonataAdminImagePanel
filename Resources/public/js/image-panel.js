@@ -69,7 +69,7 @@ if (!window.ImagePanel) {
 
             function uploadImage(dataURL, cb) {
 
-                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', {_locale: 'en'}, false);
+                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', null, false);
                 var params = {};
 
                 if (dataURL.indexOf('data:image/png') !== -1) {
