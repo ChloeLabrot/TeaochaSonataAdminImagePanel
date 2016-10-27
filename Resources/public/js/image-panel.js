@@ -163,6 +163,20 @@ if (!window.ImagePanel) {
 
             function returnImageToCkeditor(image) {
                 var url = $(image).attr('src');
+
+                // Remove already applied filter, if any
+                var startPath = url.indexOf("/media/cache");
+                if (startPath >= 0) {
+                    // Remove base url
+                    url = url.slice(url.indexOf("/media/cache/") + "/media/cache/".length, url.length);
+
+                    // Remove applied filter ("thumbnail_BO", ...)
+                    url = url.slice(url.indexOf("/") + "/".length, url.length);
+
+                    // We have the path! Now, let's apply the "wysiwyg" filter
+                    url = Routing.generate('liip_imagine_filter', {filter: "wysiwyg", path: url});
+                }
+
                 var funcNum = getUrlParam( 'CKEditorFuncNum' );
                 window.opener.CKEDITOR.tools.callFunction( funcNum, url );
                 window.close()
