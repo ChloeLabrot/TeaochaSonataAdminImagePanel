@@ -69,7 +69,13 @@ if (!window.ImagePanel) {
 
             function uploadImage(dataURL, cb) {
 
-                var uploadUrl = Routing.generate('teaocha_image_panel_upload_image', null, false);
+                var uploadUrl = null;
+                try {
+                    uploadUrl = Routing.generate('teaocha_image_panel_upload_image', null, false);
+                }
+                catch (e) {
+                    uploadUrl = Routing.generate('teaocha_image_panel_upload_image2', null, false);
+                }
                 var params = {};
 
                 if (dataURL.indexOf('data:image/png') !== -1) {
@@ -172,10 +178,15 @@ if (!window.ImagePanel) {
 
                     // Remove applied filter ("thumbnail_BO", ...)
                     url = url.slice(url.indexOf("/") + "/".length, url.length);
-
-                    // We have the path! Now, let's apply the "wysiwyg" filter
-                    url = Routing.generate('liip_imagine_filter', {filter: "wysiwyg", path: url});
                 }
+
+                // If the file is just updated, the path will look like "/uploads/filename.ext"
+                // We need to remove the /.
+                if (url.indexOf("/") == 0)
+                    url = url.slice(1, url.length);
+
+                // We have the path! Now, let's apply the "wysiwyg" filter
+                url = Routing.generate('liip_imagine_filter', {filter: "wysiwyg", path: url});
 
                 var funcNum = getUrlParam( 'CKEditorFuncNum' );
                 window.opener.CKEDITOR.tools.callFunction( funcNum, url );
